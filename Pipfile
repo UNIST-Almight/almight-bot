@@ -13,4 +13,4 @@ slack-bolt = "*"
 python_version = "3.9"
 
 [scripts]
-dev = "python almight_bot.py"
+dev = "python main.py"
