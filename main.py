@@ -12,6 +12,8 @@ app = App(
 # @app.event("app_home_opened") etc
 
 #print(app.client.auth_test())
+
+# when bot mentioned, activate
 @app.event("app_mention")
 def event_test(body, say, message, logger, client, token):
     user = body["event"]["user"]
@@ -23,6 +25,7 @@ def event_test(body, say, message, logger, client, token):
     #user = message['user']
     say(f"안녕하세요, <@{user}>!")
 
+# when someone chat in slack channel, ativate
 @app.event("message")
 def handle_message_events(body, say, message, logger):
     logger.info(body)
@@ -31,11 +34,14 @@ def handle_message_events(body, say, message, logger):
     #print(message)
     say("This is a message")
 
+# ? why cannot avtivate..
 @app.message(":wave:")
 def say_hello(message, say):
     user = message['user']
     say(f"Hi there, <@{user}>!")
 
+# this part reset previous event
+# if this isn't, bot eternally repeat last event until get new event
 @app.event("app_home_opened")
 def update_home_tab(client, event, logger):
     try:
@@ -52,6 +58,7 @@ def update_home_tab(client, event, logger):
 if __name__ == "__main__":
     app.start(port=int(os.environ.get("PORT", 5000)))
 
+# this is embed(like?) message format
 # text = {
 # 	"blocks": [
 # 		{
